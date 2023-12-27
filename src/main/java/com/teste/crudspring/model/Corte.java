@@ -19,4 +19,5 @@ public class Corte {
 
     @Column(length = 50, nullable = false)
     private String categoria;
+    
 }
