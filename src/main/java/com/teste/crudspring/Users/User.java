@@ -27,10 +27,10 @@ public class User implements UserDetails {
     private String password;
     private UserTipo tipo;
 
-    public User(String login, String password, UserTipo role){
+    public User(String login, String password, UserTipo tipo){
         this.login = login;
         this.password = password;
-        this.tipo = role;
+        this.tipo = tipo;
     }
 
     @Override
