@@ -17,7 +17,7 @@ public class CrudSpringApplication {
 	@Bean
 	CommandLineRunner init(CorteRepository corteRepository) {
 		return args -> {
-			corteRepository.deleteAll();
+			//corteRepository.deleteAll();
 
 			Corte corte = new Corte();
 			corte.setNome("Corte Masculino");
