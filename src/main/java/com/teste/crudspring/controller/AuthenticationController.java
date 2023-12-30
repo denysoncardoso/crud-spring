@@ -1,8 +1,10 @@
 package com.teste.crudspring.controller;
 
 import com.teste.crudspring.DTO.AuthenticationDTO;
+import com.teste.crudspring.DTO.LoginResponseDTO;
 import com.teste.crudspring.DTO.RegisterDTO;
 import com.teste.crudspring.Users.User;
+import com.teste.crudspring.infra.security.TokenService;
 import com.teste.crudspring.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -25,13 +27,18 @@ public class AuthenticationController {
     @Autowired
     private UserRepository repository;
 
+    @Autowired
+    private TokenService tokenService;
 
     @PostMapping("/login")
     public ResponseEntity login(@RequestBody @Valid AuthenticationDTO data){
         var usernamePassword = new UsernamePasswordAuthenticationToken(data.login(), data.password());
         var auth = this.authenticationManager.authenticate(usernamePassword);
 
-        return ResponseEntity.ok().build();
+        var token = tokenService.generateToken((User) auth.getPrincipal());
+
+
+        return ResponseEntity.ok(new LoginResponseDTO(token));
     }
 
     @PostMapping("/register")
